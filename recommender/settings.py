@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'djangobower',
     'south',
+    'movie_data',
+    'movie_names',
 )
 
 MIDDLEWARE_CLASSES = (
