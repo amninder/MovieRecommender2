@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MovieRecommender</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
+  $.getJSON( "{{STATIC_URL}}result.json", function( data ) {
+  var similar_movies = [];
+  var movies = [];
+  var i=0;
+  var str = "";
+  $.each( data, function( key, val ) {
+  	i++;
+    // similar_movies.push( "<div id='" + i + "'><b>" + i+": "+ key +"</b><div id='mov"+i+"'><p>"+ val+ "</p></div>"+"</div>" );
+    // similar_movies.push("<h3>"+key+"</h3>"+"<div><p>"+val+"</p></div>")
+    str += "<h3>"+i+" "+key+"</h3>"+"<div><p>"+val+"</p></div>";
+    
+  });
+  // console.log(str);
+  $(str).appendTo("#accordion")
+  // $( "<div/>", {
+  //   "class": "accordian",
+  //   html: similar_movies.join( "" )
+  // }).appendTo( "#accordian" );
+});
+});
+$(function() {
+    $( "#accordion" ).accordion();
+  });
+</script>
+<script>
+  </script>
+</head>
+<body>
+<div id="accordion"></div>
+</body>
+</html>
