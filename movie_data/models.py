@@ -9,6 +9,7 @@ class Genre(models.Model):
 class Movie(models.Model):
     movie_id = models.PositiveIntegerField('MovieID')
     title = models.CharField('Title',max_length=200)
+    year = models.CharField("Year", max_length=4)
     genres = models.ManyToManyField(Genre)
     def __unicode__(self):
         return self.movie_id

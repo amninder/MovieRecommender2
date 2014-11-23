@@ -18,9 +18,10 @@ class Command(BaseCommand):
                 st = re.split("::", line)
                 movie_id = st[0]
                 movie_title = st[1]
+                year = movie_title[len(movie_title)-5:-1]
                 genres = st[2][:-1].split("|")
-                # print "{}: {}: {}".format(movie_id, movie_title, genres)
-                movie = Movie(movie_id=movie_id, title=movie_title)
+                print "Movie: {}".format(movie_title[:len(movie_title)-7])
+                movie = Movie(movie_id=movie_id, title=movie_title[:len(movie_title)-7], year=year)
                 movie.save()
                 for genre in genres:
                     movie.genres.add(Genre.objects.get(genre=genre).pk)

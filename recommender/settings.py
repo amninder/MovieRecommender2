@@ -122,7 +122,7 @@ BOWER_INSTALLED_APPS = (
     # 'tapmantwo-fork-of-jQuery-UI-MultiSelect-Widget#1.4'
     "chosen-bootstrap",
     "https://git.techops.cmich.edu/narot1a/notify/repository/archive.zip?ref=logo",
-    "https://git.techops.cmich.edu/narot1a/sb-admin/repository/archive.zip?ref=master", #Dashboard template
+    "https://git.techops.cmich.edu/narot1a/sb-admin-2/repository/archive.zip?ref=master", #Dashboard template
 
 )
 
