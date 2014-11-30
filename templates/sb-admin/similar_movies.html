@@ -37,7 +37,9 @@
         <!-- /.panel-heading -->
         <div class="panel-body">
           <div id="morris-area-chart">
-            This is a sample sentence.
+            {% for item in data %}
+              {{item.genre}}<br/>
+            {% endfor %}
           </div>
         </div>
         <!-- /.panel-body -->

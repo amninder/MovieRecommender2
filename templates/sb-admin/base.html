@@ -32,10 +32,60 @@
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+  <script>
+  $(document).ready(function() {
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    $("#search_movie_name_button").click(
+      function(event){
+        var value = {
+            'csrfmiddlewaretoken': getCookie('csrftoken'),
+            'data': $("#movie_name_input").val()}
+        var url = "/get_movie/";
+
+        $.ajax({
+          url : url,
+          type: "POST",
+          data : value,
+          success: function(data, textStatus, jqXHR)
+          {
+            //data - response from server
+            // console.log(textStatus)
+            alert(textStatus);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(textStatus);
+            // alert(textStatus);
+          }
+        });
+      }
+    );
+  });
+  </script>
 
 </head>
 
 <body>
+  {% csrf_token %}
   <div id="wrapper">
 
     <!-- Navigation -->
@@ -70,6 +120,9 @@
             <li>
               <a class="active" href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
+            <li>
+              <a href="/movies"><i class="fa fa-dashboard fa-fw"></i> Movies</a>
+            </li>
           </ul>
         </div>
         <!-- /.sidebar-collapse -->
@@ -79,20 +132,20 @@
     {%block content%}
     {%endblock%}
 
-        </div>
-        <!-- /#wrapper -->
+  </div>
+  <!-- /#wrapper -->
 
-        <!-- jQuery -->
-        <script src="{{STATIC_URL}}sb-admin-2/js/jquery.js"></script>
+  <!-- jQuery -->
+  <script src="{{STATIC_URL}}sb-admin-2/js/jquery.js"></script>
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="{{STATIC_URL}}sb-admin-2/js/bootstrap.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="{{STATIC_URL}}sb-admin-2/js/bootstrap.min.js"></script>
 
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="{{STATIC_URL}}sb-admin-2/js/plugins/metisMenu/metisMenu.min.js"></script>
+  <!-- Metis Menu Plugin JavaScript -->
+  <script src="{{STATIC_URL}}sb-admin-2/js/plugins/metisMenu/metisMenu.min.js"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="{{STATIC_URL}}sb-admin-2/js/sb-admin-2.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script src="{{STATIC_URL}}sb-admin-2/js/sb-admin-2.js"></script>
 </body>
 
 </html>
