@@ -40,10 +40,14 @@ class ReturnMovieName(View):
         movie_name = request.POST.get("movie_name_input")
         svd = SVD("data/movielens")
         data = svd.similar(int(movie_name))
+        key = movie_name
         result = {}
+        values = []
         for item in data:
-            result[item[0]] = item[1]*100
-        response = HttpResponse(json.dumps(result))
+            values.append({"x":str(item[0]), "y": item[1]*100})
+        # item = [{"key": key, "values":values}]
+        # print values
+        response = HttpResponse(json.dumps(values))
         return response
 
     def get(self, request):

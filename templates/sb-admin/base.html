@@ -36,6 +36,11 @@
 
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+
+  <!-- MORRIS CHARTS -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+  <script src="http://cdn.oesmith.co.uk/morris-0.4.1.min.js"></script>
+
   <script>
   $(document).ready(function() {
     function getCookie(name) {
@@ -71,7 +76,17 @@
             // console.log(textStatus)
             // alert(data);
             $("#movie-names-area").html("");
-            $("#movie-names-area").append(data);
+            // $("#movie-names-area").append(data);
+            // $.each($.parseJSON(data), function(key, value){
+            //   $("#movie-names-area").append(key + ": "+value+"<br/>");
+            // });
+            Morris.Bar({
+              element: 'bar-graph',
+              data: JSON.parse(data),
+              xkey: 'x',
+              ykeys: ['y'],
+              labels: ['Similarity (%) ']
+            });
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
@@ -111,9 +126,9 @@
           <ul class="nav" id="side-menu">
             <li class="sidebar-search">
               <div class="input-group custom-search-form">
-                <input type="text" class="form-control" placeholder="Enter Movie Title...">
+                <input type="text" class="form-control" placeholder="Enter Movie Title..." id="movie_name_input">
                 <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">
+                  <button class="btn btn-default" type="button" id="search_movie_name_button">
                     <i class="fa fa-search"></i>
                   </button>
                 </span>
