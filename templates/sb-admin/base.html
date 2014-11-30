@@ -58,7 +58,7 @@
       function(event){
         var value = {
             'csrfmiddlewaretoken': getCookie('csrftoken'),
-            'data': $("#movie_name_input").val()}
+            'movie_name_input': $("#movie_name_input").val()}
         var url = "/get_movie/";
 
         $.ajax({
@@ -69,12 +69,15 @@
           {
             //data - response from server
             // console.log(textStatus)
-            alert(textStatus);
+            // alert(data);
+            $("#movie-names-area").html("");
+            $("#movie-names-area").append(data);
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
-            alert(textStatus);
             // alert(textStatus);
+            $("#movie-names-area").html("");
+            $("#movie-names-area").append(textStatus);
           }
         });
       }

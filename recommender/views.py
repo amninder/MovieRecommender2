@@ -5,6 +5,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 from movie_data.models import Genre
 
+import recsys.algorithm
+from recsys.utils.svdlibc import SVDLIBC
+from recsys.algorithm.factorize import SVD
+recsys.algorithm.VERBOSE = True
+
+import json
+
 
 class Index(TemplateView):
     def __init__(self):
@@ -30,9 +37,13 @@ class ReturnMovieName(View):
         self.description = "Returns Movie Name"
 
     def post(self, request):
-        # response = HttpResponse(request.POST.get("movie_name_input"))
-        print "post called"
-        response = HttpResponse("Got your request")
+        movie_name = request.POST.get("movie_name_input")
+        svd = SVD("data/movielens")
+        data = svd.similar(int(movie_name))
+        result = {}
+        for item in data:
+            result[item[0]] = item[1]*100
+        response = HttpResponse(json.dumps(result))
         return response
 
     def get(self, request):
