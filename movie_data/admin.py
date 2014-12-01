@@ -35,7 +35,7 @@ admin.site.register(Rating, RatingAdmin)
 
 
 class ImdbMovieAdmin(admin.ModelAdmin):
-    list_display = ("imdb_id", "image_url")
+    list_display = ("title", "imdb_id", "image_url")
 admin.site.register(ImdbMovie, ImdbMovieAdmin)
 
 class ImdbDirectorAdmin(admin.ModelAdmin):

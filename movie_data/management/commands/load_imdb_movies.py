@@ -17,10 +17,10 @@ class Command(BaseCommand):
             for line in f:
                 fields = line.split("\t")
                 movie_id = fields[0]
+                movie_title = fields[1].decode("latin-1").encode('utf-8')
                 imdb_id = "tt{}".format(fields[2])
                 image_url = fields[4]
                 movie = Movie.objects.get(movie_id=movie_id)
-                print "Movie ID: {}, Imdb ID: {}".format(movie_id, imdb_id)
-
-                movie = ImdbMovie(title=movie, imdb_id=imdb_id, image_url=image_url)
-                movie.save()
+                print "title: {}, imdb_id: {}, image_url: {}".format(movie_title, imdb_id, image_url)
+                imdb_movie = ImdbMovie(movie_id=movie, title=movie_title, imdb_id=imdb_id, image_url=image_url)
+                imdb_movie.save()
