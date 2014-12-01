@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 name = fields[2].decode('latin-1').encode('utf-8')
                 # name = fields[2].decode('latin-1')
                 rating = fields[3]
-                print "Name: {}, Rank: {}".format(name, rating)
+                print "movie id: {} Name: {}, Rank: {}".format(movie_id, name, rating)
                 movie = Movie.objects.get(movie_id=int(movie_id))
 
                 actor = ImdbActor(movie_id=movie, actor_id=actor_id, name=name, rating=rating)
