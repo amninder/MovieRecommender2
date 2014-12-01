@@ -14,7 +14,7 @@ class Movie(models.Model):
     def __unicode__(self):
         return "{}: {}".format(self.movie_id, self.title.encode("utf8"))
 
-    movie_id = models.PositiveIntegerField('MovieID')
+    movie_id = models.CharField('MovieID', max_length=20)
     title    = models.CharField('Title',max_length=200)
     year     = models.CharField("Year", max_length=4)
     genres   = models.ManyToManyField(Genre)
@@ -24,7 +24,7 @@ class Rating(models.Model):
     def __unicode__(self):
         return self.movie_id
 
-    user_id   = models.PositiveIntegerField('User ID')
+    user_id   = models.CharField('User ID', max_length=20)
     rating    = models.FloatField(validators = [ MinValueValidator(0.0), MaxValueValidator(5.0)])
     movie_id  = models.ForeignKey(Movie)
     timestamp = models.DateTimeField()
@@ -39,14 +39,14 @@ class ImdbMovie(models.Model):
 class ImdbDirector(models.Model):
     def __unicode__(self):
         return self.name
-    movie_id    = models.ForeignKey(ImdbMovie)
+    movie_id    = models.ForeignKey(Movie)
     director_id = models.CharField("Director ID", max_length=20)
     name        = models.CharField("Director Name", max_length=100)
 
 class ImdbActor(models.Model):
     def __unicode__(self):
         return self.name
-    movie_id = models.ForeignKey(ImdbMovie)
+    movie_id = models.ForeignKey(Movie)
     actor_id = models.CharField("Director ID", max_length=20)
     name     = models.CharField("Director Name", max_length=100)
     rating   = models.FloatField(validators = [ MinValueValidator(0.0)])
@@ -60,6 +60,6 @@ class ImdbTag(models.Model):
 class ImdbMovieTag(models.Model):
     def __unicode__(self):
         return self.tag_id
-    movie_id = models.ForeignKey(ImdbMovie)
+    movie_id = models.ForeignKey(Movie)
     tag_id = models.ForeignKey(ImdbTag)
     weight = models.CharField("Weight", max_length=20)

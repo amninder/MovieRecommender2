@@ -39,11 +39,11 @@ class ImdbMovieAdmin(admin.ModelAdmin):
 admin.site.register(ImdbMovie, ImdbMovieAdmin)
 
 class ImdbDirectorAdmin(admin.ModelAdmin):
-    list_display = ("movie_id", "director_id", "name")
+    list_display = ("director_id", "name")
 admin.site.register(ImdbDirector, ImdbDirectorAdmin)
 
 class ImdbActorAdmin(admin.ModelAdmin):
-    list_display = ("movie_id", "actor_id", "name", "rating")
+    list_display = ("actor_id", "name", "rating")
 admin.site.register(ImdbActor, ImdbActorAdmin)
 
 class ImdbTagAdmin(admin.ModelAdmin):
@@ -51,5 +51,5 @@ class ImdbTagAdmin(admin.ModelAdmin):
 admin.site.register(ImdbTag, ImdbTagAdmin)
 
 class ImdbMovieTagAdmin(admin.ModelAdmin):
-    list_display = ("movie_id", "tag_id", "weight")
+    list_display = ("tag_id", "weight")
 admin.site.register(ImdbMovieTag, ImdbMovieTagAdmin)
