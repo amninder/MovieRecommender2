@@ -20,7 +20,7 @@ class Command(BaseCommand):
                 movie_title = st[1]
                 year = movie_title[len(movie_title)-5:-1]
                 genres = st[2][:-1].split("|")
-                # print "Movie: {}".format(movie_title[:len(movie_title)-7])
+                print "Movie: {}".format(movie_title[:len(movie_title)-7])
                 movie = Movie(movie_id=movie_id, title=movie_title[:len(movie_title)-7], year=year)
                 movie.save()
                 for genre in genres:

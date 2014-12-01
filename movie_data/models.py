@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, URLValidator
 
 
 class Genre(models.Model):
@@ -24,7 +24,42 @@ class Rating(models.Model):
     def __unicode__(self):
         return self.movie_id
 
-    user_id   = models.PositiveIntegerField('MovieID')
+    user_id   = models.PositiveIntegerField('User ID')
     rating    = models.FloatField(validators = [ MinValueValidator(0.0), MaxValueValidator(5.0)])
     movie_id  = models.ForeignKey(Movie)
     timestamp = models.DateTimeField()
+
+class ImdbMovie(models.Model):
+    def __unicode__(self):
+        return self.imdb_id
+    title     = models.ForeignKey(Movie)
+    imdb_id   = models.CharField('IMDB MovieID', max_length=50)
+    image_url = models.CharField(max_length=200, validators=[URLValidator()], blank=True)
+
+class ImdbDirector(models.Model):
+    def __unicode__(self):
+        return self.name
+    movie_id    = models.ForeignKey(ImdbMovie)
+    director_id = models.CharField("Director ID", max_length=20)
+    name        = models.CharField("Director Name", max_length=100)
+
+class ImdbActor(models.Model):
+    def __unicode__(self):
+        return self.name
+    movie_id = models.ForeignKey(ImdbMovie)
+    actor_id = models.CharField("Director ID", max_length=20)
+    name     = models.CharField("Director Name", max_length=100)
+    rating   = models.FloatField(validators = [ MinValueValidator(0.0)])
+
+class ImdbTag(models.Model):
+    def __unicode__(self):
+        return self.value
+    tag_id = models.CharField("Tag ID", max_length=30)
+    value  = models.CharField("Tag Value", max_length=50)
+
+class ImdbMovieTag(models.Model):
+    def __unicode__(self):
+        return self.tag_id
+    movie_id = models.ForeignKey(ImdbMovie)
+    tag_id = models.ForeignKey(ImdbTag)
+    weight = models.CharField("Weight", max_length=20)
