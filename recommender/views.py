@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from movie_data.models import Genre
+from movie_data.models import Movie
 
 import recsys.algorithm
 from recsys.utils.svdlibc import SVDLIBC
@@ -17,8 +18,8 @@ class Index(TemplateView):
     def __init__(self):
         self.template_name = "index.html"
     def get_context_data(self, **kwargs):
-		context = super(Index, self).get_context_data(**kwargs)
-		return context
+        context = super(Index, self).get_context_data(**kwargs)
+        return context
 
 class FindSimilarMovies(TemplateView):
     def __init__(self):
@@ -44,9 +45,8 @@ class ReturnMovieName(View):
         result = {}
         values = []
         for item in data:
-            values.append({"x":str(item[0]), "y": item[1]*100})
-        # item = [{"key": key, "values":values}]
-        # print values
+            movie = Movie.objects.get(movie_id=item[0])
+            values.append({"title":"{} ({})".format(movie.title, movie.year), "percent": format(item[1]*100, '.3f')})
         response = HttpResponse(json.dumps(values))
         return response
 

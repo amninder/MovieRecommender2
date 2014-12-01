@@ -129,3 +129,5 @@ BOWER_INSTALLED_APPS = (
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
 )
+
+DEFAULT_CHARSET = 'utf-8'

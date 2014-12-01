@@ -82,10 +82,17 @@
             // });
             Morris.Bar({
               element: 'bar-graph',
+              // barColors: ['#00CDC6'],
+              resize: true,
+              xLabelAngle: '60',
+              // axes: false,
               data: JSON.parse(data),
-              xkey: 'x',
-              ykeys: ['y'],
-              labels: ['Similarity (%) ']
+              xkey: 'title',
+              ykeys: ['percent'],
+              labels: ['Similarity '],
+              yLabelFormat: function(d){
+                return d.toString() + "%";
+              }
             });
           },
           error: function (jqXHR, textStatus, errorThrown)
