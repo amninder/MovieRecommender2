@@ -13,6 +13,8 @@ class Command(BaseCommand):
     help      = "Read genere from 'movies.dat'"
 
     def handle(self, *args, **options):
+        total_movies = []
+        count = 0
         with open(file_path+"movies.dat", "r") as f:
             for line in f:
                 fields = line.split("\t")
@@ -20,7 +22,13 @@ class Command(BaseCommand):
                 movie_title = fields[1].decode("latin-1").encode('utf-8')
                 imdb_id = "tt{}".format(fields[2])
                 image_url = fields[4]
-                movie = Movie.objects.get(movie_id=movie_id)
-                print "title: {}, imdb_id: {}, image_url: {}".format(movie_title, imdb_id, image_url)
-                imdb_movie = ImdbMovie(movie_id=movie, title=movie_title, imdb_id=imdb_id, image_url=image_url)
-                imdb_movie.save()
+                if imdb_id not in total_movies:
+                    total_movies.append(imdb_id)
+                    movie = Movie.objects.get(movie_id=movie_id)
+                    # print "title: {}, imdb_id: {}, image_url: {}".format(movie_title, imdb_id, image_url)
+                    imdb_movie = ImdbMovie(movie_id=movie, title=movie_title, imdb_id=imdb_id, image_url=image_url)
+                    imdb_movie.save()
+                else:
+                    print "{} already stored in database".format(imdb_id)
+                    count += 1
+        print "{} duplicate found.".format(count)
