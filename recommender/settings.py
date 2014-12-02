@@ -62,16 +62,28 @@ WSGI_APPLICATION = 'recommender.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': 'vagrant',                      # Or path to database file if using sqlite3.
+#         'USER': 'vagrant',                      # Not used with sqlite3.
+#         'PASSWORD': 'vagrant',                  # Not used with sqlite3.
+#         'HOST': '127.0.0.1',                    # Set to empty string for localhost. Not used with sqlite3.
+#         'PORT': '',                             # Set to empty string for default. Not used with sqlite3.
+#     }
+# }
+
+"""
+MongoDb
+"""
+from mongoengine import connect
+connect('employeedb', username='my_username', password='secret_password')
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'vagrant',                      # Or path to database file if using sqlite3.
-        'USER': 'vagrant',                      # Not used with sqlite3.
-        'PASSWORD': 'vagrant',                  # Not used with sqlite3.
-        'HOST': '127.0.0.1',                    # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                             # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': ''
     }
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
