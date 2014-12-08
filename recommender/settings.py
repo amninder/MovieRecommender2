@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'south',
     'movie_data',
     'movie_names',
+    'haystack'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -131,3 +132,14 @@ TEMPLATE_DIRS = (
 )
 
 DEFAULT_CHARSET = 'utf-8'
+
+
+"""
+HAYSTACK
+"""
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}

@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^get_movie/$', ReturnMovieName.as_view(), name='return_movie_name'),
     url(r'movies/', include('movie_data.urls')),
     # url(r'^blog/', include('blog.urls')),
+    (r'^search/', include('haystack.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'show_indexes': False}),

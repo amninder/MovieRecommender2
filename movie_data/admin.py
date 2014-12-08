@@ -8,6 +8,7 @@ from movie_data.models import ImdbDirector
 from movie_data.models import ImdbActor
 from movie_data.models import ImdbTag
 from movie_data.models import ImdbMovieTag
+from movie_data.models import Note
 
 def get_genres(GenereAdmin, request, queryset):
     print "Custom Action"
@@ -53,3 +54,7 @@ admin.site.register(ImdbTag, ImdbTagAdmin)
 class ImdbMovieTagAdmin(admin.ModelAdmin):
     list_display = ("tag_id", "weight")
 admin.site.register(ImdbMovieTag, ImdbMovieTagAdmin)
+
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ("user", "pub_date", "title", "body")
+admin.site.register(Note, NoteAdmin)
