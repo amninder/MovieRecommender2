@@ -6,12 +6,14 @@ Jinja2==2.7.3
 MarkupSafe==0.23
 South==1.0.1
 Unidecode==0.04.16
+Whoosh==2.6.0
 csc-pysparse==1.1.1.4
 csc-utils==0.6.7
 decorator==3.4.0
 dj-database-url==0.3.0
 dj-static==0.0.5
 django-bower==5.0.1
+django-haystack==2.3.1
 django-nvd3==0.7.7
 django-toolbelt==0.0.1
 ecdsa==0.11

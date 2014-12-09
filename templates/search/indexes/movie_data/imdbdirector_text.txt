@@ -1,0 +1,3 @@
+{{ object.movie_id }}
+{{ object.director_id }}
+{{ object.name }}
