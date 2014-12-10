@@ -49,12 +49,21 @@
                 </div>
                 <div class="col-md-9">
                   <div class="page-header well">
-                    <a href="/movies/{{result.object.id}}"><h1>{{result.object.title}}</h1></a>
-                    <div class="btn-group" role="group" aria-label="...">
-                      <button type="button" class="btn btn-default" name="{{result.object.movie_id.movie_id}}">Find similar movies</button>
-                    </div>
+                    <a href="/movies/{{result.object.id}}"><h1>{{result.object.title}}<small id="{{result.object.imdb_id}}_year"></small></h1></a>
+                    <div id="{{result.object.imdb_id}}_Plot"></div><br/>
+                    <div id="{{result.object.imdb_id}}_Awards"></div>
                   </div>
                 </div>
+                <script charset="utf-8">
+                    var xhReq = new XMLHttpRequest();
+                    xhReq.open("GET", "http://www.omdbapi.com/?i=" + "{{result.object.imdb_id}}&plot=short&r=json", false);
+                    xhReq.send(null);
+                    // var serverResponse = xhReq.responseText;
+                    var data = JSON.parse(xhReq.responseText);
+                    document.getElementById("{{result.object.imdb_id}}_year").innerHTML = "(" + data.Year + ")";
+                    document.getElementById("{{result.object.imdb_id}}_Plot").innerHTML = data.Plot;
+                    document.getElementById("{{result.object.imdb_id}}_Awards").innerHTML = "<b>Awards: </b>"+data.Awards;
+                </script>
                 {% endif %}
           </div>
           <!-- <p> -->

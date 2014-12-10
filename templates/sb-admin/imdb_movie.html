@@ -41,7 +41,11 @@
     </div>
     <div class="col-lg-4">
       <div class="row">
-        <img src="{{MEDIA_URL}}{{object.imdb_id}}.jpg" alt="" />
+        {% if object.image_url %}
+        <img src="{{MEDIA_URL}}{{object.imdb_id}}.jpg" height="314" width="214"></img>
+        {% else %}
+        <img src="{{MEDIA_URL}}movieplaceholder.jpg" height="314" width="214"></img>
+        {% endif %}
       </div>
       <div class="row">
         <div class="col-lg-4">
