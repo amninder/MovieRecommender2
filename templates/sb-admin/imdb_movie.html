@@ -2,21 +2,84 @@
 
 {% extends "sb-admin/base.html" %}
 {% block content %}
-
 <div id="page-wrapper">
 
   <div class="row">
     <div class="col-lg-8">
-      <br/>Imdb Id: {{object.imdb_id}}
-      <br/>Title: {{object.title}}
-      <br/>MovieId: {{object.movie_id.movie_id}}
+      <div class="page-header">
+        <h1>{{object.title}} <small id="year"></small></h1>
+      </div>
+      <div id="summary">
+
+      </div>
+      <table class="table">
+        <tr>
+          <td>Genre</td>
+          <td id="Genre"></td>
+        </tr>
+        <tr>
+          <td>Director</td>
+          <td id="Director"></td>
+        </tr>
+        <tr>
+          <td>Write</td>
+          <td id="Writer"></td>
+        </tr>
+        <tr>
+          <td>Actors</td>
+          <td id="Actors"></td>
+        </tr>
+        <tr>
+          <td>Language</td>
+          <td id="Language"></td>
+        </tr>
+        <tr>
+          <td>Country</td>
+          <td id="Country"></td>
+        </tr>
+      </table>
     </div>
     <div class="col-lg-4">
-      <img src="{{MEDIA_URL}}{{object.imdb_id}}.jpg" alt="" />
+      <div class="row">
+        <img src="{{MEDIA_URL}}{{object.imdb_id}}.jpg" alt="" />
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div id="Rated"></div>
+        </div>
+        <div class="col-lg-4">
+          <div id="imdbRating">This</div>
+        </div>
+      </div>
     </div>
   </div>
 
 </div>
+<script charset="utf-8">
+
+$.ajax({
+  type: "GET",
+  dataType: "json",
+  url: "http://www.omdbapi.com/?i=" + "{{object.imdb_id}}&plot=full&r=json",
+  success: function(data){
+    // return data.Poster;
+    document.getElementById("year").innerHTML = "(" + data.Year + ")";
+    document.getElementById("summary").innerHTML = "<b>"+ data.Plot + "</b>";
+    document.getElementById("Rated").innerHTML = "<b>Rated: </b>"+ data.Rated;
+    document.getElementById("imdbRating").innerHTML = "<b>Rating: </b>"+ data.imdbRating;
+    document.getElementById("Genre").innerHTML = data.Genre;
+    document.getElementById("Director").innerHTML = data.Director;
+    document.getElementById("Writer").innerHTML = data.Writer;
+    document.getElementById("Actors").innerHTML = data.Actors;
+    document.getElementById("Language").innerHTML = data.Language;
+    document.getElementById("Country").innerHTML = data.Country;
+  },
+  async:false,
+  error: function() {
+    alert("Image not found.");
+  }
+});
+</script>
 <!-- /#page-wrapper -->
 
 {% endblock %}
