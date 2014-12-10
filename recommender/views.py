@@ -79,27 +79,30 @@ def return_similar_movies(request):
         print imdb_id
         similar_data = {}
         svd = SVD("data/movielens")
-        movie_id = int(ImdbMovie.objects.get(imdb_id=imdb_id).movie_id.movie_id)
+        movie_id = int(ImdbMovie.objects.get(imdb_id=imdb_id).movie_id)
         data = svd.similar(movie_id)
         total=[]
         for item in data:
-            movie = Movie.objects.get(movie_id=item[0])
+            # movie = Movie.objects.get(movie_id=item[0])
             try:
-                imdb = ImdbMovie.objects.get(movie_id=movie)
+                imdb = ImdbMovie.objects.get(movie_id=item[0])
                 if imdb:
-                    total.append([imdb.imdb_id, imdb.movie_id.movie_id])
+                    l = [imdb.imdb_id, imdb.movie_id, imdb.pk]
+                    if l not in total:
+                        total.append(l)
             except:
                 continue
-                # print "{}: {}".format(movie.movie_id, imdb[0])
+                print "{}: {}".format(movie.movie_id, imdb[0])
         for item in total[1:]:
             print "ImdbId: {}".format(item)
+        print total
         response = HttpResponse(json.dumps(total))
         return response
 
     elif request.method=='GET':
         svd = SVD("data/movielens")
         # tt0240200
-        movie_id = int(ImdbMovie.objects.get(imdb_id="tt0038622").movie_id)
+        movie_id = int(ImdbMovie.objects.get(imdb_id="tt0317705").movie_id)
         data = svd.similar(movie_id)
         total=[]
         for item in data:
@@ -107,12 +110,14 @@ def return_similar_movies(request):
             try:
                 imdb = ImdbMovie.objects.get(movie_id=item[0])
                 print "{}: {}".format(imdb.movie_id, imdb.imdb_id)
-                l = [imdb.imdb_id, imdb.movie_id]
-                if l not in total:
-                    total.append(l)
+                if imdb:
+                    l = [imdb.imdb_id, imdb.movie_id]
+                    if l not in total:
+                        total.append(l)
             except:
+                print "exception thrown"
                 continue
-                # print "{}: {}".format(movie.movie_id, imdb[0].imdb_id)
+                print "{}: {}".format(movie.movie_id, imdb[0].imdb_id)
         print total
 
         return HttpResponse("Probably not the page you are looking for.")

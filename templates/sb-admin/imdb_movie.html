@@ -24,7 +24,7 @@ function getCookie(name) {
   <div class="row">
     <div class="col-lg-8">
       <div class="page-header">
-        <h1>{{object.imdb_id}}: {{object.movie_id.movie_id}} <small id="year"></small></h1>
+        <h1>{{object.imdb_id}}: {{object.movie_id}} <small id="year"></small></h1>
       </div>
       <div id="summary">
 
@@ -111,7 +111,7 @@ $.ajax({
   },
   async:false,
   error: function() {
-    alert("Image not found.");
+    console.log("Image not found.");
   }
 });
 var value = {
@@ -129,21 +129,22 @@ $.ajax({
     var json = JSON.parse(data)
     for(var item in json){
       var imdb_id = json[item];
-      console.log(imdb_id[0] + ": " + imdb_id[1])
+
 
       $.ajax({
         type: "GET",
         dataType: "json",
         url: "http://www.omdbapi.com/?i=" + imdb_id[0] +"&plot=full&r=json",
         success: function(data){
+          console.log(imdb_id[0] + ": " + imdb_id[1] + ": " + imdb_id[2])
           var poster = '<img src='+'{{MEDIA_URL}}' +imdb_id[0] +'.jpg'+'></img>'
-          var a = '<a href="/movies/' + imdb_id[1]+ '">' + poster + "</a>"
+          var a = '<a href="/movies/' + imdb_id[2]+ '">' + poster + "</a>"
           var DynamicDiv = $("<div>"+a+"</div>");
           $("#similar_movies").append(DynamicDiv);
         },
         async:false,
         error: function() {
-          alert("Image not found.");
+          console.log("Image not found.");
         }
       });
 
