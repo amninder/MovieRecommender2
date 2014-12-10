@@ -30,28 +30,11 @@ class FindSimilarMovies(TemplateView):
 
 
 
-def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))
-    suggestions = [result.title for result in sqs]
-    # Make sure you return a JSON object, not a bare list.
-    # Otherwise, you could be vulnerable to an XSS attack.
-    the_data = json.dumps({
-        'results': suggestions
-    })
-    return HttpResponse("sample sentence", content_type='application/json')
+class MovieView(View):
 
-class Autocomplete(View):
+    def post(self, request, *args, **kwargs):
+        print request.POST.get('pk-hidden')
+        return HttpResponse("request.POST.get('pk-hidden')")
 
-    """
-        search query
-    """
-    def __init__(self):
-        self.greet = "this is a sample sentence"
-
-    def get(self, request):
-        var = request.GET.get("q")
-        sqs = SearchQuerySet().autocomplete(content_suto="Sam")
-        suggestions = [result.title for result in sqs]
-        for s in suggestions:
-            print s
-        return HttpResponse(self.greet)
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("get page")

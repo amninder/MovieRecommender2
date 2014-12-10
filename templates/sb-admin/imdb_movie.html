@@ -1,0 +1,22 @@
+
+
+{% extends "sb-admin/base.html" %}
+{% block content %}
+
+<div id="page-wrapper">
+
+  <div class="row">
+    <div class="col-lg-8">
+      <br/>Imdb Id: {{object.imdb_id}}
+      <br/>Title: {{object.title}}
+      <br/>MovieId: {{object.movie_id.movie_id}}
+    </div>
+    <div class="col-lg-4">
+      <img src="{{MEDIA_URL}}{{object.imdb_id}}.jpg" alt="" />
+    </div>
+  </div>
+
+</div>
+<!-- /#page-wrapper -->
+
+{% endblock %}

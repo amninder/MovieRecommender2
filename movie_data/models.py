@@ -37,6 +37,7 @@ class ImdbMovie(models.Model):
     title     = models.CharField("Imdb Title", max_length=300)
     imdb_id   = models.CharField('IMDB MovieID', max_length=50)
     image_url = models.CharField(max_length=300, validators=[URLValidator()], blank=True)
+    # year      = models.CharField(max_length=10)
 
 class ImdbDirector(models.Model):
     def __unicode__(self):
