@@ -33,7 +33,7 @@ class Rating(models.Model):
 class ImdbMovie(models.Model):
     def __unicode__(self):
         return self.imdb_id
-    movie_id  = models.ForeignKey(Movie)
+    movie_id  = models.PositiveIntegerField('MovieID')
     title     = models.CharField("Imdb Title", max_length=300)
     imdb_id   = models.CharField('IMDB MovieID', max_length=50)
     image_url = models.CharField(max_length=300, validators=[URLValidator()], blank=True)

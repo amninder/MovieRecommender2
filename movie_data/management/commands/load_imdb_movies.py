@@ -38,7 +38,8 @@ class Command(BaseCommand):
                             print "{}.jpg Found in {}".format(imdb_id, media_path)
                     movie = Movie.objects.get(movie_id=movie_id)
                     print "title: {}, imdb_id: {}, image_url: {}".format(movie_title, imdb_id, image_url)
-                    imdb_movie = ImdbMovie(movie_id=movie, title=movie_title, imdb_id=imdb_id, image_url=image_url)
+                    # imdb_movie = ImdbMovie(movie_id=movie, title=movie_title, imdb_id=imdb_id, image_url=image_url)
+                    imdb_movie = ImdbMovie(movie_id=movie_id, title=movie_title, imdb_id=imdb_id, image_url=image_url)
                     imdb_movie.save()
                 else:
                     print "{} already stored in database".format(imdb_id)
