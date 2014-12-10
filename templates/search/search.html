@@ -40,20 +40,22 @@
           {% for result in page.object_list %}
           <div class="row">
               <div class="col-md-3">
-                {% if result.object.image_url %}
+                {% if result.object.title %}
+                  {% if result.object.image_url %}
                   <img src="{{MEDIA_URL}}{{result.object.imdb_id}}.jpg" height="314" width="214"></img>
-                {% else %}
-                <img src="{{MEDIA_URL}}movieplaceholder.jpg" height="314" width="214"></img>
+                  {% else %}
+                  <img src="{{MEDIA_URL}}movieplaceholder.jpg" height="314" width="214"></img>
+                  {% endif %}
+                </div>
+                <div class="col-md-9">
+                  <div class="page-header">
+                    <h1>{{result.object.title}} <small>Add to list</small></h1>
+                  </div>
+                  <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" name="{{result.object.movie_id.movie_id}}">Find similar movies</button>
+                  </div>
+                </div>
                 {% endif %}
-              </div>
-              <div class="col-md-9">
-                <div class="page-header">
-                  <h1>{{result.object.title}} <small>Add to list</small></h1>
-                </div>
-                <div class="btn-group" role="group" aria-label="...">
-                  <button type="button" class="btn btn-default" name="{{result.object.movie_id.movie_id}}">Find similar movies</button>
-                </div>
-              </div>
           </div>
           <!-- <p> -->
             <!-- <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a> -->
