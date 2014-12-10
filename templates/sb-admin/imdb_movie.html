@@ -2,6 +2,23 @@
 
 {% extends "sb-admin/base.html" %}
 {% block content %}
+<script charset="utf-8">
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie != '') {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = jQuery.trim(cookies[i]);
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) == (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+</script>
 <div id="page-wrapper">
 
   <div class="row">
@@ -14,7 +31,7 @@
       </div>
       <table class="table">
         <tr>
-          <td>Genre</td>
+          <td>{{csrf_token}}</td>
           <td id="Genre"></td>
         </tr>
         <tr>
@@ -36,6 +53,10 @@
         <tr>
           <td>Country</td>
           <td id="Country"></td>
+        </tr>
+        <tr>
+          <td>Country</td>
+          <td id="ajax_test"></td>
         </tr>
       </table>
     </div>
@@ -59,7 +80,7 @@
   </div>
 
 </div>
-<script charset="utf-8">
+<script>
 
 $.ajax({
   type: "GET",
@@ -82,6 +103,29 @@ $.ajax({
   error: function() {
     alert("Image not found.");
   }
+});
+var value = {
+      // 'csrfmiddlewaretoken': getCookie('csrftoken'),
+      // 'csrfmiddlewaretoken': getCookie('csrftoken'),
+      'imdb_id': "{{object.imdb_id}}"
+}
+
+// var url = "/get_similar_movie/"
+$.ajax({
+  type: "POST",
+  url: "/get_similar_movie/",
+  data: JSON.stringify(value),
+  success: function(data){
+    // alert("Success")
+    console.log(data);
+    document.getElementById("ajax_test").innerHTML = data;
+  },
+  async:false,
+  error: function (jqXHR, textStatus, errorThrown)
+    {
+      // alert(textStatus);
+      console.log(textStatus);
+    }
 });
 </script>
 <!-- /#page-wrapper -->

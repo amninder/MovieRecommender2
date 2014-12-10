@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.conf.urls.static import static
-from recommender.views import Index, FindSimilarMovies, ReturnMovieName
+from recommender.views import Index, FindSimilarMovies, ReturnMovieName, ReturnSimilarMovies
+from recommender.views import return_similar_movies
 
 from django.contrib import admin
 admin.autodiscover()
@@ -10,6 +11,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', Index.as_view(), name='index'),
     url(r'^get_movie/$', ReturnMovieName.as_view(), name='return_movie_name'),
+    url(r'^get_similar_movie/$', return_similar_movies, name='ReturnSimilarMovies'),
     url(r'movies/', include('movie_data.urls')),
     # url(r'^blog/', include('blog.urls')),
     # (r'^search/', include('haystack.urls')),
