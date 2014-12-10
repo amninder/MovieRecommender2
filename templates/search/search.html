@@ -19,12 +19,6 @@
               <span>{{item}}</span>
               {% endfor %}
               <input class="btn btn-default" type="submit" value="Search">
-            <script charset="utf-8">
-            // $("#search_button").click(function(event){
-            //     alert($)
-            //   });
-            // })
-            </script>
           </div>
         </form>
         </div>
@@ -48,7 +42,7 @@
                 <img src="{{MEDIA_URL}}{{result.object.imdb_id}}.jpg"></img>
               </div>
               <div class="col-md-9">
-                <b>{{result.object.title}}</b>
+                <button type="button" class="btn btn-default btn-lg btn-block">{{result.object.title}}</button>
               </div>
           </div>
           <p>
