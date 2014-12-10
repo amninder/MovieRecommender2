@@ -9,16 +9,17 @@
     <div class="col-lg-12">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <form id="search_form" action="/search" method="get">
+          <form id="search_form" action="." method="get">
 
 
           <div class="input-group custom-search-form">
             <form method="get" action=".">
-              {{form.id}}
               {% for item in form %}
               <span>{{item}}</span>
               {% endfor %}
-              <input class="btn btn-default" type="submit" value="Search">
+              <span class="input-group-btn">
+                <input class="btn btn-default" type="submit" value="Search">
+              </span>
           </div>
         </form>
         </div>
@@ -39,28 +40,48 @@
           {% for result in page.object_list %}
           <div class="row">
               <div class="col-md-3">
-                <img src="{{MEDIA_URL}}{{result.object.imdb_id}}.jpg"></img>
+                {% if result.object.image_url %}
+                  <img src="{{MEDIA_URL}}{{result.object.imdb_id}}.jpg" height="314" width="214"></img>
+                {% else %}
+                <img src="{{MEDIA_URL}}movieplaceholder.jpg" height="314" width="214"></img>
+                {% endif %}
               </div>
               <div class="col-md-9">
-                <button type="button" class="btn btn-default btn-lg btn-block">{{result.object.title}}</button>
+                <div class="page-header">
+                  <h1>{{result.object.title}} <small>Add to list</small></h1>
+                </div>
+                <div class="btn-group" role="group" aria-label="...">
+                  <button type="button" class="btn btn-default" name="{{result.object.movie_id.movie_id}}">Find similar movies</button>
+                </div>
               </div>
           </div>
-          <p>
-            <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a>
+          <!-- <p> -->
+            <!-- <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a> -->
             <!-- <br/> movie id: <b>{{result.object.movie_id.movie_id}}</b>
             <br/>
             <br/> imdb id: <b>{{result.object.imdb_id}}</b> -->
 
-          </p>
+          <!-- </p> -->
           {% empty %}
           <p>No results found.</p>
           {% endfor %}
 
           {% if page.has_previous or page.has_next %}
           <div>
-            {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-            |
-            {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+            <nav>
+              <ul class="pagination">
+                <li>
+                    {% if page.has_previous %}
+                      <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>
+                    {% endif %}
+                </li>
+                </li>
+                    {% if page.has_next %}
+                    <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>
+                    {% endif %}
+                </li>
+              </ul>
+            </nav>
           </div>
           {% endif %}
           {% else %}

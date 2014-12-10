@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^get_movie/$', ReturnMovieName.as_view(), name='return_movie_name'),
     url(r'movies/', include('movie_data.urls')),
     # url(r'^blog/', include('blog.urls')),
-    (r'^search/', include('haystack.urls')),
+    # (r'^search/', include('haystack.urls')),
     (r'^autocomplete/', Autocomplete.as_view()),
 
     url(r'^admin/', include(admin.site.urls)),
