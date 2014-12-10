@@ -81,12 +81,31 @@ def return_similar_movies(request):
         svd = SVD("data/movielens")
         movie_id = int(ImdbMovie.objects.get(imdb_id=imdb_id).movie_id.movie_id)
         data = svd.similar(movie_id)
+        total=[]
         for item in data:
-            print item[0]
             movie = Movie.objects.get(movie_id=item[0])
-            print movie.title
-        response = HttpResponse(imdb_id)
+            imdb = ImdbMovie.objects.filter(movie_id=movie)
+            if imdb:
+                total.append(imdb[0].imdb_id)
+                # print "{}: {}".format(movie.movie_id, imdb[0])
+        for item in total[1:]:
+            print "ImdbId: {}".format(item)
+        response = HttpResponse(json.dumps(total[1:]))
         return response
 
     elif request.method=='GET':
+        svd = SVD("data/movielens")
+        # tt0240200
+        movie_id = int(ImdbMovie.objects.get(imdb_id="tt0038622").movie_id.movie_id)
+        data = svd.similar(movie_id)
+        total=[]
+        for item in data:
+            movie = Movie.objects.get(movie_id=item[0])
+            imdb = ImdbMovie.objects.filter(movie_id=movie)
+            if imdb:
+                total.append(imdb[0].imdb_id)
+                # print "{}: {}".format(movie.movie_id, imdb[0].imdb_id)
+        for item in total[1:]:
+            print "ImdbId: {}".format(item)
+
         return HttpResponse("Probably not the page you are looking for.")

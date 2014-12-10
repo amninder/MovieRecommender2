@@ -28,19 +28,18 @@ class Command(BaseCommand):
                 if imdb_id not in total_movies:
                     total_movies.append(imdb_id)
                     if image_url !="":
-                        print "year: {}".format(year)
-                        # if not os.path.isfile(media_path+"{}.jpg".format(imdb_id)):
-                        #     print "{}.jpg <- {}".format(imdb_id, image_url)
-                        #     image = urllib2.urlopen(image_url)
-                        #     output = open("media/{}.jpg".format(imdb_id), "wb")
-                        #     output.write(image.read())
-                        #     output.close()
-                        # else:
-                        #     print "{}.jpg Found in {}".format(imdb_id, media_path)
-                    # movie = Movie.objects.get(movie_id=movie_id)
-                    # print "title: {}, imdb_id: {}, image_url: {}".format(movie_title, imdb_id, image_url)
-                    # imdb_movie = ImdbMovie(movie_id=movie, title=movie_title, imdb_id=imdb_id, image_url=image_url)
-                    # imdb_movie.save()
+                        if not os.path.isfile(media_path+"{}.jpg".format(imdb_id)):
+                            print "{}.jpg <- {}".format(imdb_id, image_url)
+                            image = urllib2.urlopen(image_url)
+                            output = open("media/{}.jpg".format(imdb_id), "wb")
+                            output.write(image.read())
+                            output.close()
+                        else:
+                            print "{}.jpg Found in {}".format(imdb_id, media_path)
+                    movie = Movie.objects.get(movie_id=movie_id)
+                    print "title: {}, imdb_id: {}, image_url: {}".format(movie_title, imdb_id, image_url)
+                    imdb_movie = ImdbMovie(movie_id=movie, title=movie_title, imdb_id=imdb_id, image_url=image_url)
+                    imdb_movie.save()
                 else:
                     print "{} already stored in database".format(imdb_id)
                     count += 1

@@ -55,7 +55,7 @@ function getCookie(name) {
           <td id="Country"></td>
         </tr>
         <tr>
-          <td>Country</td>
+          <td>Similar Movies: </td>
           <td id="ajax_test"></td>
         </tr>
       </table>
@@ -77,6 +77,20 @@ function getCookie(name) {
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="row">
+    <style>
+      #similar_movies div{
+        display: inline;
+        margin: 0 1em 0 1em;
+        width: 30%
+      }
+    </style>
+    <div id="similar_movies">
+
+    </div>
+
   </div>
 
 </div>
@@ -116,9 +130,28 @@ $.ajax({
   url: "/get_similar_movie/",
   data: JSON.stringify(value),
   success: function(data){
-    // alert("Success")
-    console.log(data);
     document.getElementById("ajax_test").innerHTML = data;
+    var json = JSON.parse(data)
+    for(var item in json){
+      var imdb_id = json[item];
+
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "http://www.omdbapi.com/?i=" + imdb_id +"&plot=full&r=json",
+        success: function(data){
+          var poster = '<img src='+'{{MEDIA_URL}}' +imdb_id +'.jpg'+'></img'
+          var DynamicDiv = $("<div>"+poster+"</div>");
+          $("#similar_movies").append(DynamicDiv);
+        },
+        async:false,
+        error: function() {
+          alert("Image not found.");
+        }
+      });
+
+
+    }
   },
   async:false,
   error: function (jqXHR, textStatus, errorThrown)
