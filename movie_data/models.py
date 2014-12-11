@@ -66,3 +66,8 @@ class ImdbMovieTag(models.Model):
     movie_id = models.ForeignKey(Movie)
     tag_id = models.ForeignKey(ImdbTag)
     weight = models.CharField("Weight", max_length=20)
+class ThisUser(models.Model):
+    def __unicode__(self):
+        pass
+    user = models.OneToOneField(User)
+    movie = models.ForeignKey(ImdbMovie)

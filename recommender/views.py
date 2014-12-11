@@ -96,7 +96,7 @@ def return_similar_movies(request):
         for item in total[1:]:
             print "ImdbId: {}".format(item)
         print total
-        response = HttpResponse(json.dumps(total))
+        response = HttpResponse(json.dumps(total[1:]))
         return response
 
     elif request.method=='GET':
@@ -121,3 +121,6 @@ def return_similar_movies(request):
         print total
 
         return HttpResponse("Probably not the page you are looking for.")
+
+def ret_user_movies(request):
+    pass
